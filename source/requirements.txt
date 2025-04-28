@@ -1,0 +1,7 @@
+numpy
+sympy
+matplotlib>=3.4.0
+plotly
+flask
+sklearn
+scikit-learn>=1.0.2

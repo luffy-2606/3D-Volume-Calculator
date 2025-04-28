@@ -1,0 +1,156 @@
+:root {
+    --primary-color: #D32F2F;  /* Luffy's red */
+    --secondary-color: #FFD700;  /* Gold accent */
+    --background-color: #1a1a1a;  /* Dark theme */
+    --text-color: #ffffff;
+    --border-color: #FFD700;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    background-image: url('https://i.imgur.com/8kqwvFr.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(26, 26, 26, 0.95);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 3px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    color: var(--secondary-color);
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.input-section {
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.calculate-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.2s;
+    width: 100%;
+}
+
+.calculate-btn:hover {
+    transform: scale(1.02);
+    background-color: #b71c1c;
+}
+
+.result-section {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    grid-column: 1 / -1;
+}
+
+.plot-section {
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    height: 600px;
+}
+
+#plot3d {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 3px solid var(--border-color);
+    color: var(--secondary-color);
+}
+
+.coordinate-system, .volume-result {
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+/* Error message styling */
+.error {
+    color: var(--primary-color);
+    background-color: rgba(211, 47, 47, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid var(--primary-color);
+}
