@@ -78,6 +78,6 @@ The project successfully demonstrates the feasibility of automating coordinate s
 ---
 
 **Contributors**:    
-Azan Wasty (Lead Developer)   
-Ali Naveed (Report Handling)   
-Morning Musume - モーニング娘。(Emotional Support)   
+- Azan Wasty (Lead Developer)   
+- Ali Naveed (Report Handling)   
+- Morning Musume - モーニング娘。(Emotional Support)   
