@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>3D Volume Calculator</h1>
+            <h2>Group 3.0</h2>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <form id="volumeForm" method="POST">
+                    <div class="form-group">
+                        <label for="equation1">First Region Equation:</label>
+                        <input type="text" id="equation1" name="equation1" placeholder="e.g., x**2 + y**2 + z**2 = 9" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="equation2">Second Region Equation:</label>
+                        <input type="text" id="equation2" name="equation2" placeholder="e.g., x**2 + y**2 = 4" required>
+                    </div>
+                    
+                    <button type="submit" class="calculate-btn">Calculate Volume!</button>
+                </form>
+            </div>
+
+            {% if result %}
+            <div class="result-section">
+                <div class="coordinate-system">
+                    <h3>Recommended Coordinate System:</h3>
+                    <p>{{ result.coordinate_system }}</p>
+                </div>
+                
+                <div class="volume-result">
+                    <h3>Volume Result:</h3>
+                    <p>{{ result.volume }} cubic units</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="plot-section">
+                <div id="plot3d"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made by Saaif x Azan 🏴‍☠️</p>
+        </footer>
+    </div>
+
+    {% if plot_data %}
+    <script>
+        const plotData = JSON.parse('{{ plot_data | tojson | safe }}');
+        Plotly.newPlot('plot3d', plotData.data, plotData.layout);
+    </script>
+    {% endif %}
+</body>
+</html>
