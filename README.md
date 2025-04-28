@@ -1,5 +1,26 @@
 # 3D-Volume-Calculator
 
+# 🌐 3D-Volume-Calculator 
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
+[![Open in Visual Studio Code](https://img.shields.io/badge/Open%20in-VSCode-007ACC?logo=visual-studio-code)](https://open.vscode.dev/yourusername/3D-Volume-Calculator)
+
+An AI-powered system that automatically selects the optimal coordinate system for triple integrals.
+
+## 🚀 Features
+- 🤖 ML-based coordinate system prediction
+- ∫∫∫ Automated triple integration
+- 📊 3D visualization of surfaces
+- 🌐 Web interface (Flask)
+
+## 🛠️ Installation
+```bash
+git clone https://github.com/luffy-2606/3D-Volume-Calculator.git
+cd 3D-Volume-Calculator
+pip install -r requirements.txt
+python app.py
+```
 ## About
 This project aims to develop an AI model to automate the selection of the optimal coordinate system (Cartesian, Cylindrical, or Spherical) for solving triple integrals involving two surfaces. By leveraging machine learning and symbolic computation, the system simplifies volume calculations in multivariable calculus, providing faster and more accurate solutions.
 
