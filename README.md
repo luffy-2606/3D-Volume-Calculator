@@ -19,7 +19,7 @@ An AI-powered system that automatically selects the optimal coordinate system fo
 git clone https://github.com/luffy-2606/3D-Volume-Calculator.git
 cd 3D-Volume-Calculator
 pip install -r requirements.txt
-python app.py
+python source/app.py
 ```
 ## About
 This project aims to develop an AI model to automate the selection of the optimal coordinate system (Cartesian, Cylindrical, or Spherical) for solving triple integrals involving two surfaces. By leveraging machine learning and symbolic computation, the system simplifies volume calculations in multivariable calculus, providing faster and more accurate solutions.
