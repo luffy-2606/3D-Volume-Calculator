@@ -56,63 +56,83 @@ def parse_equation(equation_str: str) -> Tuple[Optional[sp.Expr], Optional[str]]
         print(f"Error parsing equation: {e}")
         return None, None
 
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+
 def find_coordinate_system(equation_str: str) -> str:
-    """
-    Determine the most suitable coordinate system for a given equation.
-    Returns the recommended coordinate system as a string.
-    """
-    x, y, z = sp.symbols('x y z')
-    try:
-        # Clean up equation string
-        equation_str = equation_str.replace('^', '**').replace(' ', '')
-        if '=' in equation_str:
-            left, right = equation_str.split('=')
-            left_exp = sp.sympify(left)
-            right_exp = sp.sympify(right)
-            e = sp.Eq(left_exp, right_exp)
-            # Define features to check
-            features = [
-                x**2 + y**2,
-                x**2 + z**2,
-                y**2 + z**2,
-                x**2 + y**2 + z**2,
-                x**2,
-                y**2,
-                z
-            ]
-            # Training data (features labeled by suitable coordinate system)
-            X = [
-                [1,0,0,0,0,0,0],  # Cylinder around z-axis
-                [0,1,0,0,0,0,0],  # Cylinder around y-axis
-                [0,0,1,0,0,0,0],  # Cylinder around x-axis
-                [0,0,0,1,0,0,0],  # Sphere
-                [0,0,0,0,1,0,0],  # Paraboloid (x^2 only)
-                [0,0,0,0,0,1,0],  # Paraboloid (y^2 only)
-                [0,0,0,0,0,0,1],  # Plane with z
-                [0,0,0,0,0,0,0]   # Other (no recognizable features)
-            ]
-            y_labels = [
-                "Cylindrical",
-                "Cylindrical",
-                "Cylindrical",
-                "Spherical",
-                "Cylindrical",
-                "Cylindrical",
-                "Cartesian",
-                "Cartesian"
-            ]
-            # Check for features in equation
-            f_arr = [0] * len(features)
-            for i, feature in enumerate(features):
-                if e.lhs.has(feature) or e.rhs.has(feature):
-                    f_arr[i] = 1
-            clf = RandomForestClassifier(n_estimators=100, random_state=42)
-            clf.fit(X, y_labels)
-            predicted_system = clf.predict([f_arr])[0]
-            return predicted_system
-    except Exception as e:
-        print(f"Error determining coordinate system: {e}")
-    return "Cartesian"
+    # Updated training dataset
+    X_train = np.array([
+        [1, 2, 3], [1, 1, 1], [2, 2, 4], [3, 1, 5], [5, 6, 7],
+        [2, 3, 4], [1, 4, 2], [5, 5, 5], [6, 6, 8], [7, 7, 9],
+        [1, 3, 2], [2, 5, 6], [3, 2, 3], [4, 3, 5], [6, 4, 6],
+        [7, 3, 8], [8, 2, 7], [2, 4, 5], [3, 5, 7], [4, 4, 6],
+        [5, 3, 4], [2, 2, 2], [6, 6, 7], [7, 6, 8], [8, 5, 9],
+        [5, 5, 6], [4, 2, 4], [3, 1, 3], [8, 7, 6], [7, 5, 4],
+        [6, 4, 5], [5, 6, 7], [3, 3, 2], [2, 3, 5], [4, 5, 6],
+        [6, 7, 8], [3, 4, 5], [2, 5, 4], [6, 6, 6], [7, 4, 3],
+        [4, 4, 5], [5, 3, 2], [7, 6, 6], [5, 7, 8], [8, 7, 7],
+        [9, 9, 9], [3, 3, 3], [6, 6, 5], [5, 4, 6], [4, 6, 7],
+        [8, 8, 7], [7, 7, 6], [3, 5, 6], [1, 3, 4], [4, 3, 2],
+        [9, 9, 5], [8, 6, 6], [2, 2, 6], [6, 5, 7], [7, 8, 5],
+        [3, 4, 4], [2, 3, 6], [4, 6, 8], [7, 8, 9], [1, 2, 5],
+        [3, 2, 4], [5, 6, 5], [9, 8, 7], [8, 7, 6], [4, 3, 4],
+        [7, 9, 6], [6, 4, 7], [5, 5, 7], [9, 6, 8], [8, 5, 9],
+        [7, 7, 8], [2, 5, 6], [9, 9, 6], [4, 5, 5], [3, 5, 7],
+        [1, 2, 2], [4, 3, 6], [8, 5, 4], [7, 7, 7], [6, 6, 4],
+        [1, 1, 2], [4, 1, 1], [5, 2, 3], [7, 8, 4], [6, 9, 3],
+        [9, 5, 2], [3, 8, 6], [7, 2, 9], [2, 8, 3], [6, 3, 1],
+        [4, 2, 5], [1, 5, 8], [5, 6, 2], [8, 4, 7], [6, 7, 2],
+        [2, 6, 4], [3, 7, 1], [8, 2, 5], [5, 3, 9], [7, 5, 2],
+        [9, 3, 8], [4, 6, 2], [3, 4, 7], [6, 2, 5]
+    ])
+
+    y_train = np.array([
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cylindrical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cylindrical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical',
+        'Spherical', 'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical',
+        'Spherical', 'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical',
+        'Spherical', 'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical',
+        'Spherical', 'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical',
+        'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical',
+        'Spherical', 'Cartesian', 'Cylindrical', 'Spherical', 'Cartesian',
+        'Cylindrical', 'Spherical', 'Cartesian', 'Cylindrical', 'Spherical'
+    ])
+
+    # Train the classifier
+    clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    clf.fit(X_train, y_train)
+
+    # Preprocess the equation string
+    equation_str = equation_str.replace(' ', '').replace('^', '**').lower()
+
+    # Feature extraction from equation
+    has_x2 = 'x**2' in equation_str
+    has_y2 = 'y**2' in equation_str
+    has_z2 = 'z**2' in equation_str
+    has_z = 'z' in equation_str
+
+    # Simple feature vector: [xy^2 no z^2, xyz^2, only linear z]
+    features = [
+        int(has_x2 and has_y2 and not has_z2),
+        int(has_x2 and has_y2 and has_z2),
+        int(has_z and not (has_x2 or has_y2 or has_z2))
+    ]
+
+    return clf.predict([features])[0]
+
 
 def generate_points(bounds: dict, n_points: int = 100000) -> np.ndarray:
     """
