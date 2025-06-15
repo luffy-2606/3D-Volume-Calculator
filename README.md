@@ -8,6 +8,9 @@
 
 An AI-powered system that automatically selects the optimal coordinate system for triple integrals.
 
+![Banner](3D%20Volume%20Calculator.png)
+
+
 ## 🚀 Features
 - 🤖 ML-based coordinate system prediction
 - ∫∫∫ Automated triple integration
