@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![Open in Visual Studio Code](https://img.shields.io/badge/Open%20in-VSCode-007ACC?logo=visual-studio-code)](https://open.vscode.dev/yourusername/3D-Volume-Calculator)
+[![Open in Visual Studio Code](https://img.shields.io/badge/Open%20in-VSCode-007ACC?logo=visual-studio-code)](https://open.vscode.dev/luffy-2606/3D-Volume-Calculator)
 
 An AI-powered system that automatically selects the optimal coordinate system for triple integrals.
 
